@@ -3,12 +3,14 @@ import axios from "axios";
 import Header from "./components/Header";
 import Form from "./components/Form";
 import Result from "./components/Result";
+import Spinner from "./components/Spinner";
 
 class App extends Component {
   state = {
     coins: [],
     quote: {},
-    quoteCoin: ""
+    quoteCoin: "",
+    loading: false
   };
 
   async componentDidMount() {
@@ -32,16 +34,31 @@ class App extends Component {
     const { coin, cripto } = coins;
 
     const url = `https://api.coinmarketcap.com/v2/ticker/${cripto}/?convert=${coin}`;
-
+    this.setState({
+      loading: true
+    });
     await axios.get(url).then(resp => {
       this.setState({
         quote: resp.data.data,
-        quoteCoin: coin
+        quoteCoin: coin,
+        loading: false
       });
     });
   };
 
   render() {
+    const loading = this.state.loading;
+
+    let result;
+
+    if (loading) {
+      result = <Spinner />;
+    } else {
+      result = (
+        <Result quote={this.state.quote} quoteCoin={this.state.quoteCoin} />
+      );
+    }
+
     return (
       <div className="container">
         <Header title="Cotizador de cryptomonedas al instante" />
@@ -51,7 +68,7 @@ class App extends Component {
               coins={this.state.coins}
               getCriptoValue={this.getCriptoValue}
             />
-            <Result quote={this.state.quote} quoteCoin={this.state.quoteCoin} />
+            {result}
           </div>
         </div>
       </div>

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import axios from "axios";
 import Header from "./components/Header";
 import Form from "./components/Form";
-import axios from "axios";
+import Result from "./components/Result";
 
 class App extends Component {
   state = {
@@ -50,6 +51,7 @@ class App extends Component {
               coins={this.state.coins}
               getCriptoValue={this.getCriptoValue}
             />
+            <Result quote={this.state.quote} />
           </div>
         </div>
       </div>

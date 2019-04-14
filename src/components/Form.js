@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import OptionSelect from "./OptionSelect";
+
 class Form extends Component {
   render() {
     return (
@@ -18,7 +20,11 @@ class Form extends Component {
         </div>
         <div className="form-group">
           <label>Criptomoneda</label>
-          <select className="form-control" />
+          <select className="form-control">
+            {Object.keys(this.props.coins).map(key => (
+              <OptionSelect key={key} coin={this.props.coins[key]} />
+            ))}
+          </select>
         </div>
         <div className="form-group">
           <input type="submit" className="btn btn-primary" value="Cotizar" />

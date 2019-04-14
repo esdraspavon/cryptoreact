@@ -51,7 +51,7 @@ class App extends Component {
               coins={this.state.coins}
               getCriptoValue={this.getCriptoValue}
             />
-            <Result quote={this.state.quote} />
+            <Result quote={this.state.quote} quoteCoin={this.state.quoteCoin} />
           </div>
         </div>
       </div>
